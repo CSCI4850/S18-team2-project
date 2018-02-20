@@ -1,5 +1,7 @@
 Part 1 - Project Proposal
+
 20 Points - Due: Mar. 1 @ 11:00pm
+
 Requirements
 Your project proposal should consist of at least 500 words (max. 1000) describing the overal goals of your project, the neural network
 technologies you intend to use, the potential data or data sets you intend to leverage, and the kinds of tests you would like to perform to

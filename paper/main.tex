@@ -1,0 +1,295 @@
+% PACKAGES INCLUDED HERE.                                                       
+% DO NOT NEED TO CHANGE                                                         
+\documentclass[conference]{IEEEtran}                                            
+%\IEEEoverridecommandlockouts                                                   
+% The preceding line is only needed to identify funding in the first footnote. If that is unneeded, >
+%Packages
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+%\usepackage{tikz}
+%\usetikzlibrary{arrows, automata}
+\usepackage{xargs}
+\usepackage[pdftex,dvipsnames]{xcolor}
+\usepackage[colorinlistoftodos,prependcaption,textsize=tiny]{todonotes}
+
+%Command definitions.
+%Insert figures.
+\newcommand{\genFig}[2]
+{
+     \begin{figure}
+        \centering
+        \includegraphics[height=60mm]{#1}
+        \caption{#2}
+    \end{figure}
+}
+ 
+%Display color-coded notes to self.
+\newcommandx{\unsure}[2][1=]
+{
+	\todo[inline, linecolor=red,backgroundcolor=red!25,bordercolor=red,#1]{#2}
+}
+\newcommandx{\change}[2][1=]
+{
+	\todo[linecolor=blue,backgroundcolor=blue!25,bordercolor=blue,#1]{#2}
+}
+\newcommandx{\info}[2][1=]
+{
+	\todo[inline, linecolor=OliveGreen,backgroundcolor=OliveGreen!25,bordercolor=OliveGreen,#1]
+    {#2}
+}
+\newcommandx{\improvement}[2][1=]
+{
+	\todo[inline, linecolor=Plum,backgroundcolor=Plum!25,bordercolor=Plum,#1]{#2}
+}
+\newcommandx{\thiswillnotshow}[2][1=]
+{
+	\todo[disable,#1]{#2}
+}
+
+\newcommand{\selu}
+{
+	\text{selu}
+}
+
+%Start document.
+\begin{document}
+
+%Title
+\title{Predicting Bitcoin Price Using Recurrent Neural Networks with Long Short-Term Memory}
+                                                                                 
+%Authors
+\author{\IEEEauthorblockN{Bishoy Boktor}                                        
+\IEEEauthorblockA{\textit{Department of Computer Science} \\                    
+\textit{Middle Tennessee State University}\\                                    
+Murfreesboro, USA \\                                                            
+bb5p@mtmail.mtsu.edu}                                                           
+\and                                                                            
+\IEEEauthorblockN{Yonathan Feleke}                                              
+\IEEEauthorblockA{\textit{Department of Computer Science} \\                    
+\textit{Middle Tennessee State University}\\                                    
+Murfreesboro, USA \\                                                            
+ywf2a@mtmail.mtsu.edu}                                                          
+\and                                                                            
+\IEEEauthorblockN{Ryan Florida}                                                 
+\IEEEauthorblockA{\textit{Department of Computer Science} \\                    
+\textit{Middle Tennessee State University}\\                                    
+Murfreesboro, USA \\                                                            
+rjf2u@mtmail.mtsu.edu}                                                          
+\and                                                                            
+\IEEEauthorblockN{Kyle Lutz}                                                    
+\IEEEauthorblockA{\textit{Department of Computer Science} \\                    
+\textit{Middle Tennessee State University}\\                                    
+Murfreesboro, USA \\                                                            
+kjl3s@mtmail.mtsu.edu}                                                          
+\and                                                                            
+\IEEEauthorblockN{Joel Norris}                                                  
+\IEEEauthorblockA{\textit{Department of Computer Science} \\                    
+\textit{Middle Tennessee State University}\\                                    
+Murfreesboro, USA \\                                                            
+jrn3i@mtmail.mtsu.edu}                                                           
+\and                                                                            
+\IEEEauthorblockN{Karla Robles}                                                 
+\IEEEauthorblockA{\textit{Department of Computer Science} \\                    
+\textit{Middle Tennessee State University}\\                                    
+Murfreesboro, USA \\                                                            
+knr3p@mtmail.mtsu.edu}                                                          
+}
+ 
+\maketitle                                                                      
+                                                                                 
+% Abstract                                                                      
+                                                                                
+\begin{abstract}
+This paper shows how recurrent neural networks with long short-term memory can be used to
+estimate the average price and percent-change of the average price of Bitcoin a number of
+days in advance. We chose to use the long short-term memory model because of its proven
+ability to produce state-of-the-art results when dealing with sequential data. Using this
+architecture and Bitcoin data collected per-minute over a period of up to a little over
+six years, we were able to obtain rather shocking results. These results, though seemingly
+unbiased, still raise major concerns and require further investigation.
+\end{abstract}
+                                                                                
+                                                                                
+% Keywords
+\begin{IEEEkeywords}
+Recurrent Neural Networks, Neural Networks, Long Short-Term Memory, LSTM, Bitcoin,
+Cryptocurrency, BTC, RNN, Crypto
+\end{IEEEkeywords}
+
+
+%------------------------------------------------------------------------------------------------
+% INTRODUCTION SECTION                                                          
+\section{Introduction and Background}
+\subsection{Recurrent Neural Networks}
+Recurrent neural networks (RNNs) are deep and powerful sequence-based models that have been used
+in many areas of research such as audio generation \cite{b5} \cite{b4}, video \cite{b3}, text
+generation \cite{b6}, image generation \cite{b7}, and a variety of others. The main drawback of
+using RNNs is that they are notoriously difficult to train because of the infamous ``exploding''
+\cite{b9} and ``vanishing'' \cite{b10} gradient problems. However, these problems can be dealt
+with, in turn, by imposing norm-constraints on the gradients to keep them from exploding and then
+using Long Short-Term Memory (LSTM) \cite{b8} to mitigate the attenuation of the gradient. It
+should be noted that there are alternative models that also work around these problems \cite{b11}
+\cite{b12} \cite{b15}, but the LSTM model is the most widely used because of its broad generality
+and ease of implementation.
+
+\subsection{Recurrent Neural Networks with Long Short-Term Memory}
+The LSTM model is trained on the data set one step at a time in order to predict what will most
+likely come next in the sequence. Once a prediction is made, it is fed back into the network in
+order to influence all future decisions. This is to say that the prediction at a given time step
+is completely dependent upon all previous time steps. The LSTM architecture has, at the time of
+this paper, given rise to state-of-the-art results in a variety of problems, including speech
+synthesis \cite{b13}.
+\par
+Though RNNs also have long and short-term memory, the main difference between RNNs and LSTMs is
+that LSTMs come with specialized ``memory cells'' that offer an extra memory resource \cite{b16}.
+These memory cells enable LSTMs to store data for an arbitrary amount of time, in theory. The memory
+cells of vanilla LSTM models, i.e. those with forget gates, are governed by the following set of
+equations:
+\begin{align*}
+a       &= f(W\cdot[x_t; y_{t-1}]+ b)                  \\
+g_{i} &= \sigma(W_{g_i}\cdot[x_t; y_{t-1}]+ b_{g_i}) \\
+g_{o} &= \sigma(W_{g_o}\cdot[x_t; y_{t-1}]+ b_{g_o}) \\
+g_{f} &= \sigma(W_{g_f}\cdot[x_t; y_{t-1}]+ b_{g_f}) \\
+c_t     &= g_{i}\odot a + g_{f}\odot c_{t-1}       \\
+y_t     &= g_{o}\odot f(c_t)
+\end{align*}
+Here $x_t$ and $y_t$ are our input and output vectors, respectively, at time $t$, $\sigma(\cdot)$
+is the familiar sigmoid activation function (with carrying capacity and gain both set to unity),
+and $f$ is an activation function---the standard is $\tanh(\cdot)$. The input and output gate
+values, $g_{i}$ and $g_{o}$, are used to regulate incoming and outgoing data, and they also 
+take part in protecting the memory cell value. The forget gate, $g_{f}$, can be used to purge
+the memory cell when its data no longer needs to be stored. The more the input and output gates
+become ``closed off'', and the more the forget gate become ``open'', the less and less the memory
+cells undergo changes.
+
+\subsection{Bitcoin}
+Cryptocurrencies have become a very hot topic lately and the one that started it all, Bitcoin
+(BTC), is starting to really raise some eyebrows. So, what is Bitcoin? To put it simply, Bitcoin
+is an electronic means by which people can exchange value with one another sort of like how
+physical paper money can be passed between people. The main difference here though is that this
+vehicle of value is completely digital and can be passed between people across the world in
+seconds. So, one may ask, what makes this different from just wiring money to someone? Well,
+first, the cost is minimal as there are trivial fees to pay to the cryptocurrency miners---
+these fees are typically on the order of cents whereas those associated with money wires are
+astronomical in comparison. Second, one of the biggest draws to adopting Bitcoin is that it
+allows transactions to be made without a third party, i.e. a bank, being  involved in those
+transactions. Therefore, we are now at a point where we can truly take control of our own
+finances and choose to do with them as we will, not what a bank will allow us to do with
+them. Though, not to be clich\'e, with this great power comes great responsibility. A
+complete description of how the technology behind BTC is implemented can be found in
+Nakamoto's paper \cite{b1} and in Narayanan's book \cite{b17}.
+
+%------------------------------------------------------------------------------------------------
+% METHODS SECTION
+\section{Methods}
+\subsection{Data Preprocessing}
+Since we have BTC price data read in every minute, and our goal is to predict a next-day price,
+we began preprocessing our data by partitioning the data into daily subsets. We then found the
+daily averages.
+\footnote{It should be noted that some of our data sets were originally in Yen, so there were
+some cases in which we had to convert Yen to USD.}
+After finding the daily averages, we then broke our data set up into training and testing sets, 
+in which $95\%$ of the data was used for training and the remaining $5\%$ was used for testing.
+We chose this particular split to reduce the likelihood of the testing set containing a value out
+of the range of the training set. Following the split, we performed the following min-max
+normalization on both data sets:
+\begin{equation*}
+x_{i}^{*} = \frac{x_i - \min(X_{\text{train}})}{\max(X_{\text{train}})} - \min(X_{\text{train}})
+\end{equation*}
+where $X_{\text{train}}$ is the set of training data feature vectors, and $x_i \in  X$ such that
+$X = X_{\text{train}}\cup X_{\text{test}}$. Note the abuse of notation here: since
+$\dim(\underbar{x}_i) = 1, \underbar{x}_i \in X$, we just refer to each feature as $x_i$.
+
+\subsection{Constructing the Neural Network}
+For the actual neural network, we used two layers consisting of one LSTM layer and one dense
+layer. A $20\%$ dropout was applied following the LSTM layer \cite{b2} during training in
+hopes of preserving generality. For the LSTM layer's activation function, we used the
+``scaled exponential linear unit''\cite{b14}. We shall denote this activation function as
+$\selu(\cdot)$ from this point. The $\selu(\cdot)$ activation function is given by:
+\begin{equation*}
+\text{selu}(x) = \lambda
+  \begin{cases} 
+      x                     & x > 0  \\
+      \alpha e^{x} - \alpha & x \leq 0
+  \end{cases}.
+\end{equation*}
+We chose to use $\selu(\cdot)$ because it empirically outperformed the $\tanh(\cdot)$ and
+\textit{ReLU} activation functions.  The choice of optimizer for this net, also due to
+empirical findings, was \textit{adadelta}\cite{b18}\cite{b19} as it was observed to
+out-perform the standard \textit{rmsprop}. This being a  regression problem, our loss
+function was, of course, the mean-squared error function given by:
+\begin{equation*}
+\text{MSE} = \frac{1}{n}\sum_{i = 1}^{n}(X_i - \hat{X}_i)^2.
+\end{equation*}
+A visualization of this network is displayed in Figure 1.
+\genFig{LSTM.png}{Structure of our neural network.}
+
+\subsection{Training The Network}
+During the training phase, we stuck with the standard $80/20$ validation split of the training
+set. It was observed that this model over fits relatively quickly, so we kept the number of
+epochs fairly low ($500$ in the case of our final results). See Figures 2 and 3. Though each
+of our four data sets had its own ideal number of epochs to avoid over fitting, $500$ seemed to
+yield very promising results across all of them. It is also important to note that the
+training/testing data was not shuffled since we are trying to get the net to predict what is
+coming next.
+\genFig{training.png}{Training Predicted Price After 500 Epochs.}
+\genFig{training_percent.png}{Training Predicted Percent Change After 500 Epochs.}
+
+\subsection{Testing The Network}
+For testing, we treated each ``next day'' as that of the current day. This is to say that, given $n$
+training days, the predicted prices for each day $n + 1, n + 2, n + 3, \ldots$ were all treated
+as the predicted price based on day $n$ and not their immediate predecessor. To clarify: we did 
+not predict the price for day $n + 1$ and then feed that result into the net for the price
+prediction of day $n + 2$; instead, we predicted each of the day $n + i$ prices, in turn, based
+on that of day
+$n$.
+
+
+%------------------------------------------------------------------------------------------------
+% RESULTS SECTION
+\section{Results}
+Our results were surprisingly, in the most unsettling of ways, amazing as in they create the
+illusion of our network being profoundly successful. This is to say that our network seems to be
+capable of predicting general pricing trends (Figure 4) and percent-price change (Figure 5) for
+multiple days in advance with a strikingly high degree of accuracy. As can be observed in the
+aforementioned figures, our model is always over-shooting the actually price by a generous amount
+but it is, however, able to predict whether the price will be higher or lower on a given day than
+it was on the previous day. What is really exciting is the accuracy our model obtains for the
+percent-change between the days; it seems to be able to almost perfectly predict the this, which
+begs the following question: are we, unknowingly, introducing a bias somewhere in this model?
+\genFig{testing.png}{Testing Predicted Price}
+\genFig{testing_percent.png}{Testing Predicted Percent Change}
+
+
+%------------------------------------------------------------------------------------------------
+% DISCUSSION SECTION
+\section{Discussion and Conclusion}
+Due to the astounding efficacy of the LSTM model, computational scientists have been able to
+accomplish some truly amazing feats in the context of machine learning. Among the many problems
+we can attempt to solve and---at the very least---learn from, we decided to focus on the problem
+of predicting price trends for a revolutionary financial and technological achievement that has
+been gaining a lot of attention: cryptocurrenies. Since cryptocurrencies are so new and have
+sparked an interest in many people as of late, they seem like a natural choice for us to explore
+with the application of the LSTM framework in order to see if we may predict reasonable future
+trends in the prices of cryptocurrencies, if not the prices themselves. Bitcoin, since it was
+``the one that started it all'', offers us the most robust sets of pricing data since it has
+been around for quite some time now (circa 2009) and because it has peaked so much interest in,
+not only the scientific community, but also specialists from many other fields and the general
+public. Though our results seem to be ``too good to be true'', and try as we might, we were not
+able to identify any obvious bias we were adding to the model. It should be noted that the
+results of this project should not be taken at face-value and that \textbf{we are not suggesting
+anyone use these results for their own investing endeavors. As always, do your proper
+due-diligence before investing, stay skeptical, and remember: if something seems too good to be
+true, then it probably is.}
+
+
+%------------------------------------------------------------------------------------------------
+% REFERENCES
+% THIS IS CREATED AUTOMATICALLY
+\bibliographystyle{IEEEtran}
+\bibliography{References} % change if another name is used for References file  
+                                                                                
+\end{document}

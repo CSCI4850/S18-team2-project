@@ -1,10 +1,6 @@
 # Predicting Bitcoin Price Using Recurrent Neural Networks with Long Short-Term Memory
 
-One Paragraph of project description goes here
-
-## Motivation
-
-Short description
+This project uses a Recurrent Neural Network, specifically an LSTM, to predict future prices of the cryptocurrency Bitcoin. It uses 4 years of previous minutely Bitcoin pricing data obtained from kaggle.com that is then resampled into a daily price, mean-centered, and then min-max scaled. The network is able to predict general trends in the price of Bitcoin but extensive future work is required. The model currently behaves as a regressor more than anything else.
 
 ## Getting Started
 

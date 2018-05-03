@@ -18,6 +18,8 @@ Your machine needs to have the following installed for this project:
 
 5. Pandas. Pandas is a required package for loading and preprocessing of the data. You can find instructions on how to install at https://pandas.pydata.org/pandas-docs/stable/install.html
 
+6. Sklearn. This package is needed for the plotting of the graph and progress bar while learning. You can find instructions on how to install at http://scikit-learn.org/stable/install.html
+
 ### Installing
 
 Once you have your environment ready. You can clone the project

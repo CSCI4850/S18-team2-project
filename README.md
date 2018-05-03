@@ -1,36 +1,53 @@
-Part 1 - Project Proposal
+# Predicting Bitcoin Price Using Recurrent Neural Networks with Long Short-Term Memory
 
-20 Points - Due: Mar. 1 @ 11:00pm
+One Paragraph of project description goes here
 
-Requirements
+## Motivation
 
-Your project proposal should consist of at least 500 words (max. 1000) describing the overal goals of your project, the neural network
-technologies you intend to use, the potential data or data sets you intend to leverage, and the kinds of tests you would like to perform to
-verify that your final product works as intended. Remember, these are not detailed technical descriptions, but you should provide enough
-detail to convince a professor (or manager) that you have an feasible idea and that you know how to determine the success of your idea
-in a both a quatitative and qualitative manner.
+Short description
 
-Advice
+## Getting Started
 
-Constructing a proposal is a good way to start a project since it forces you to think about all of the key components that make up a
-complete project, and how they will fit together as a whole. It might also bootstrap the process of assigning roles for different team
-members and individual work assignments. Every team member's input should be collected for this assignment, but it is natural for certain
-team members to take on different roles. Some people may decide to take the technical lead and develop the core code and tests for the
-technical direction of the project. Others may decide to take a managerial role in order to provide support in writing up the relevant
-milestone reports or other project reporting (including this document, the paper, peer-reviews, etc.). Even though you are not required to
-report these contributions for this assignment, your first milestone report will require that you have have worked some of these issues so
-it's good to look just beyond
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
-Rubric
+### Prerequisites
+Your machine needs to have the following installed for this project:
+1. Python 3.3 or better. This is required to run the Jupyter Notebook. You can find the latest version on https://www.python.org/downloads/
 
-1. Does your project have a specific or focused aim (or set of aims)? (5 points)
-2. Does your proposal exposit the specific role that neural networks will play in the project? (2 points)
-3. Does your project have a specific set of data (or data sets) identified? (6 points)
-4. Does your proposal describe a verifiable testing protocol? In order words, did you describe a set of specific tests that you could run
-for collecting data and/or statistics which can discriminate between success or failure at meeting the specific aim of the project in
-both a quantitative and qualitative manner? (7 points)
+2. Jupyter Notebook. The source file including the demo is written in the Jupyter Notebook. You can find instructions on how to install Jupyter Notebook on https://jupyter.org/install
 
-Submission
+3. TensorFlow. This is required for Keras. You can find instructions on how to install on https://www.tensorflow.org/install/
 
-Your project proposal should be constructed in an iPython notebook file (.ipynb) consisting of only markdown cells, should be aptly named
-(eg. Project Proposal.ipynb), and should be committed to the project repository for your team (eg. S18-team0-project) in the top directory of the repository.
+4. Keras. This project used keras libraries. You can find instructions on how to install on https://keras.io/#installation
+
+### Installing
+
+Once you have your environment ready. You can clone the project
+
+From command line with this command:
+```
+$ git clone git@github.com:CSCI4850/S18-team2-project.git
+```
+
+## Demo
+You can find a demo of the project in the subdirector "Demo". There should be two files in there. The first will be an python Jupyter Notebook(.ipynb) that includes the source code of the demo with explanation, and the second will be a sample data (.csv) required for the demo.
+
+To run a script in jupter notbook, you need to press "Shift + Enter" in the specified cell. For example if to run "Hello World!", you need to write the script in the cell like:
+![alt text](/image/print.jpg)
+But it won't be executed until the "Shift + Enter(Return)". After execution it should look something like this:
+![alt text](/image/print2.jpg) This is important to remember when going through the demo. If you only press "Enter(Return)" it will start a new line within the same cell.
+
+**You need to satisfy the [prerequisites](#Prerequisites) to avoid any errors while running the demo.**
+
+## Authors
+
+* **Bishoy Boktor**
+* **Yonathan Feleke**
+* **Ryan Florida**
+* **Kyle Lutz**
+* **Joel Norris**
+* **Karla Robles**
+
+## License
+
+This project is licensed under the MIT License.

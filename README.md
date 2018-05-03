@@ -10,11 +10,13 @@ These instructions will get you a copy of the project up and running on your loc
 Your machine needs to have the following installed for this project:
 1. Python 3.3 or better. This is required to run the Jupyter Notebook. You can find the latest version on https://www.python.org/downloads/
 
-2. Jupyter Notebook. The source file including the demo is written in the Jupyter Notebook. You can find instructions on how to install Jupyter Notebook on https://jupyter.org/install
+2. Jupyter Notebook. The source file including the demo is written in the Jupyter Notebook. You can find instructions on how to install Jupyter Notebook at https://jupyter.org/install
 
-3. TensorFlow. This is required for Keras. You can find instructions on how to install on https://www.tensorflow.org/install/
+3. TensorFlow. This is required for Keras. You can find instructions on how to install at https://www.tensorflow.org/install/
 
-4. Keras. This project used keras libraries. You can find instructions on how to install on https://keras.io/#installation
+4. Keras. This project used keras libraries. You can find instructions on how to install at https://keras.io/#installation
+
+5. Pandas. Pandas is a required package for loading and preprocessing of the data. You can find instructions on how to install at https://pandas.pydata.org/pandas-docs/stable/install.html
 
 ### Installing
 
